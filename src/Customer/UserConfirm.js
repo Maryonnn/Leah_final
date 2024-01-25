@@ -107,7 +107,7 @@ function BuyNow(){
     return(
         <>
             <UserNavbar />
-            <Container className='mt-5'>
+            <Container>
                 <Card className='mt-5' style={{ 
                     boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
                     padding: '20px 20px'
@@ -116,7 +116,7 @@ function BuyNow(){
                         <Col><Card.Img src={image_path}/></Col>
                         <Col>
                             <div>
-                                <Card.Title className="mt-3">{car_name}</Card.Title>
+                                <Card.Title className="mt-3">{dealer_name} {car_name}</Card.Title>
                                 <Card.Title className="mt-1">{car_price}</Card.Title><br/>
                                 <Card.Text>
                                     <Row>

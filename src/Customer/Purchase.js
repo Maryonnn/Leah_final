@@ -3,6 +3,20 @@ import supabase from '../Supabase_Client/SBClient.js';
 import UserNavbar from "./UserNavbar.js";
 import { useState, useEffect, useCallback } from 'react';
 
+function FormatDate(dateString){
+    const dateObject = new Date(dateString);
+    const options = {
+        weekday: 'long',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true,
+        year: 'numeric'
+    };
+
+    return dateObject.toLocaleDateString(undefined, options);
+};
+
 function UserPurchase(){
     const [purchaseHistory, setPurchaseHistory] = useState([]);
     const customer_name = localStorage.getItem('customer_name');
@@ -31,7 +45,7 @@ function UserPurchase(){
         <>
             <UserNavbar />
             <Container className='mt-5'>
-                <Table responsive="sm">
+                <Table responsive="sm" striped bordered hover>
                     <thead>
                         <tr>
                             <th>CAR</th>

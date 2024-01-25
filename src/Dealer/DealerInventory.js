@@ -42,7 +42,13 @@ function DealerInventory(){
             </Container>
             {error && <p>{error}</p>}
             {carData && (
-                <Container className='flexcon mt-4'>
+                <Container className='mt-4' style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(540px, 1fr))',
+                    gridGap: '10px',
+                    justifyItems: 'center',
+                    paddingLeft: '60px'
+                }}>
                     {carData.filter(car => car.car_name.toLowerCase().includes(searchTerm.toLowerCase())).map((car) => (
                         <Vehicles key={car.vin} car={car} />
                     ))}
@@ -58,21 +64,26 @@ function Vehicles({ car }) {
     return (
         <>
             <Container>
-                <Card style={{ 
-                    maxWidth: '540px', 
-                    boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
-                    padding: '20px 10px'
-                }}>
-                    <Row>
-                        <Col sm={7}>
-                            <Card.Img src={image_path} className="card-image" />
-                        </Col>
-                        <Col sm={5}>
-                            <Card.Title className="mt-2">{car_name}</Card.Title>
-                            <Card.Text>Price: {price}<br/>Stocks: {stocks}</Card.Text>
-                        </Col>
-                    </Row>
-                </Card>
+                <div className="mb-4">
+                    <Card style={{ 
+                        maxWidth: '540px', 
+                        boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
+                        padding: '20px 10px'
+                    }}>
+                        <Row>
+                            <Col sm={7}>
+                                <Card.Img src={image_path} style={{
+                                    height: '200px',  
+                                    objectFit: 'cover'
+                                }}/>
+                            </Col>
+                            <Col sm={5}>
+                                <Card.Title className="mt-2">{car_name}</Card.Title>
+                                <Card.Text>Price: {price}<br/>Stocks: {stocks}</Card.Text>
+                            </Col>
+                        </Row>
+                    </Card>
+                </div>
             </Container>
         </>
     );

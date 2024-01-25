@@ -23,9 +23,9 @@ function Login() {
             if (data && data.password === password) {
                 console.log('Login successful');
                 console.log(data);
-                const user = data.user_name;
-                localStorage.setItem('user_name', user);
-                console.log(user);
+                const customer_name = data.customer_name;
+                localStorage.setItem('customer_name', customer_name);
+                console.log(customer_name)
                 navigate("/userhome");
             }
         } 
@@ -128,7 +128,7 @@ function Login() {
 
                                 <div className="d-flex mb-4 mt-5 justify-content-center">
                                     <p>Don't have an account?</p>
-                                    <a href='#register' className='mx-2' style={{
+                                    <p className='mx-2' style={{
                                         textDecoration: 'none',
                                         backgroundImage: 'linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)',
                                         WebkitBackgroundClip: 'text',
@@ -136,7 +136,7 @@ function Login() {
                                         display: 'inline-block'
                                     }}>
                                         Create New
-                                    </a>
+                                    </p>
                                 </div>
                             </Row>
                         </Card.Body>
@@ -148,11 +148,11 @@ function Login() {
                             height: '100vh !important'
                         }}>
                             <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                                <h4 className="mb-4">We're more than just a car company</h4>
+                                <h4 className="mb-4 d-flex justify-content-center">More than just a car company</h4>
                                 <p className="small mb-0">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                                    ex ea commodo consequat.
+                                    Unearth a world of automotive elegance right at your fingertips. 
+                                    Join us on the road to exclusive deals, seamless browsing, and personalized experiences. 
+                                    Log in now to explore our showroom and embark on a journey towards your dream car!
                                 </p>
                             </div>
                         </div>

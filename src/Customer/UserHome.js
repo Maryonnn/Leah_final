@@ -9,6 +9,8 @@ function UserProducts(){
     const [error] = useState(null);
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState("");
+    const [minPrice, setMinPrice] = useState(""); 
+    const [maxPrice, setMaxPrice] = useState("");
 
     const all = async () => {
         try {
@@ -54,33 +56,79 @@ function UserProducts(){
         navigate('/userconfirm');
     };
 
+    const handleFilterPrices = () => {
+        const filtered = carData.filter((car) => {
+            const carPrice = parseInt((car.price));
+            return carPrice >= parseInt(minPrice) && carPrice <= parseInt(maxPrice);
+        });
+        setCarData(filtered);
+    }
+
     return(
         <>
             <UserNavbar />
             {error && <p>{error}</p>}
             <Container style={{ display: 'flex' }}>
-                <Form className="d-flex justify-content-end mt-5 me-2" style={{ width: '170%' }}>
+
+                <Form className="d-flex justify-content-start mt-5 me-2 w-100" style={{
+                    width: '100%'
+                }}>
                     <Form.Control
                         type="search"
-                        placeholder="Search here. . ."
-                        className="me-2 w-25"
+                        placeholder="Search model. . ."
+                        className="me-2 w-50"
                         aria-label="Search"
                         onChange={event => setSearchTerm(event.target.value)}
                     />
+                    
+                    <div>
+                        <FloatingLabel controlId="floatingSelect" label="Select Brand" className="me-3">
+                            <Form.Select aria-label="Floating label select example" onChange={e => handleLogin(e.target.value)}>
+                                <option onClick={all}>All</option>
+                                <option value='Dodge'>Dodge</option>
+                                <option value='Nissan'>Nissan</option>
+                                <option value='Mercedenz-benz'>Mercedenz-benz</option>
+                                <option value='Geely'>Geely</option>
+                                <option value='MG'>MG</option>
+                            </Form.Select>
+                        </FloatingLabel>
+                    </div>
                 </Form>
 
-                <div className="d-flex justify-content-end mt-5" style={{ width: '30%' }}>
-                    <FloatingLabel controlId="floatingSelect" label="Select Brand" className="me-3">
-                        <Form.Select aria-label="Floating label select example" onChange={e => handleLogin(e.target.value)}>
-                            <option onClick={all}>All</option>
-                            <option value='Dodge'>Dodge</option>
-                            <option value='Nissan'>Nissan</option>
-                            <option value='Mercedenz-benz'>Mercedenz-benz</option>
-                            <option value='Geely'>Geely</option>
-                            <option value='MG'>MG</option>
-                        </Form.Select>
-                    </FloatingLabel>
+                <Form className="d-flex justify-content-end mt-5 w-50">
+                    <Form.Control
+                        type="text"
+                        placeholder="min price"
+                        value={minPrice}
+                        className="me-2"
+                        onChange={(e)=>setMinPrice(e.target.value)}
+                    />
+                    <Form.Control
+                        type="text"
+                        placeholder="max price"
+                        className="me-3"
+                        value={maxPrice}
+                        onChange={(e)=>setMaxPrice(e.target.value)}
+                    />
+                </Form>
+
+                <div className="d-flex justify-content-end mt-5">
+                    <Button 
+                        variant="outline-dark" 
+                        onClick={handleFilterPrices}
+                        style={{
+                            borderColor: '#d2b48c',
+                            borderWidth: '3px',
+                            transition: 'background-color 0.3s ease',
+                            fontWeight: 'bold'
+                        }} 
+                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#d2b48c'}
+                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                    >
+                        Apply
+                    </Button>
                 </div>
+
             </Container>
 
             {carData && (
@@ -100,7 +148,7 @@ function UserProducts(){
     );
 
     function CarCard({ car, onClickBuyNow }) {
-        const { car_name, price, image_path, stocks } = car;
+        const { car_name, price, image_path, stocks, dealer_name } = car;
         
         const handleBuyNowClick = () => {
             onClickBuyNow(car);
@@ -110,7 +158,8 @@ function UserProducts(){
             <>
                 <Container>
                     <div className="mb-4">
-                        <Card style={{ maxWidth: '540px', 
+                        <Card style={{ 
+                            maxWidth: '540px', 
                             boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
                             padding: '20px 20px'
                         }}>
@@ -124,13 +173,13 @@ function UserProducts(){
                                 </Col>
 
                                 <Col sm={5}>
-                                    <Card.Title className="mt-2">{car_name}</Card.Title>
+                                    <Card.Title className="mt-2 mb-2">{dealer_name} {car_name}</Card.Title>
                                     <Card.Text>Price: {price}<br/>Stocks: {stocks}</Card.Text>
                                     <Button 
                                         variant="outline-dark"
                                         style={{
                                             borderColor: '#d2b48c',
-                                            borderWidth: '2px',
+                                            borderWidth: '3px',
                                             transition: 'background-color 0.3s ease',
                                             fontWeight: 'bold'
                                         }} 
