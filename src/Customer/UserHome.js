@@ -57,11 +57,21 @@ function UserProducts(){
     };
 
     const handleFilterPrices = () => {
+        const cleanedMinPrice = minPrice.replace(/[, $€£]/g, '');
+        const cleanedMaxPrice = maxPrice.replace(/[, $€£]/g, '');
+        const minPriceValue = parseFloat(cleanedMinPrice);
+        const maxPriceValue = parseFloat(cleanedMaxPrice);
         const filtered = carData.filter((car) => {
-            const carPrice = parseInt((car.price));
-            return carPrice >= parseInt(minPrice) && carPrice <= parseInt(maxPrice);
+            const carPrice = parseFloat(car.price.replace(/[, $€£]/g, ''));
+            return carPrice >= minPriceValue && carPrice <= maxPriceValue;
         });
         setCarData(filtered);
+    }
+
+    const resetFilters = () => {
+        setMinPrice('');
+        setMaxPrice('');
+        all();
     }
 
     return(
@@ -126,6 +136,21 @@ function UserProducts(){
                         onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                     >
                         Apply
+                    </Button>
+                    <Button 
+                        variant="outline-danger" 
+                        onClick={resetFilters}
+                        className="ms-2"
+                        style={{
+                            borderColor: 'red',
+                            borderWidth: '3px',
+                            transition: 'background-color 0.3s ease',
+                            fontWeight: 'bold'
+                        }} 
+                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'red'}
+                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                    >
+                        Reset
                     </Button>
                 </div>
 

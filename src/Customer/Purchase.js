@@ -13,7 +13,6 @@ function FormatDate(dateString){
         hour12: true,
         year: 'numeric'
     };
-
     return dateObject.toLocaleDateString(undefined, options);
 };
 
@@ -68,7 +67,7 @@ function UserPurchase(){
                             <td>{purchase.car_style}</td>
                             <td>{purchase.transmission_type}</td>
                             <td>{purchase.vin}</td>
-                            <td>{purchase.created_at}</td>
+                            <td>{FormatDate(purchase.created_at)}</td>
                         </tr>
                         ))}
                     </tbody>
