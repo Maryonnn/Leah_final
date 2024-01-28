@@ -129,6 +129,9 @@ function BuyNow(){
                                                     <option value="Black">Black</option>
                                                     <option value="White">White</option>
                                                     <option value="Blue">Blue</option>
+                                                    <option value="Red">Red</option>
+                                                    <option value="Orange">Orange</option>
+                                                    <option value="Silver">Silver</option>
                                                 </Form.Select>
                                             </FloatingLabel>
                                         </Col>
