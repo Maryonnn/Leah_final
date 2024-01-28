@@ -35,7 +35,7 @@ function UserNavbar() {
 
                 <Navbar.Offcanvas bplacement="end">
                     <Offcanvas.Body>
-                        <Nav className="justify-content-end flex-grow-1 pe-3 mx-3">
+                        <Nav variant="underline" className="justify-content-end flex-grow-1 pe-3 mx-3">
                             <Nav.Link href="/dealerhome" className='mx-2 text-white fw-bold'>
                                 Company Cars
                             </Nav.Link>

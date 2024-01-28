@@ -6,7 +6,7 @@ import { Container, Row, Col, Card, Form, Button, FloatingLabel } from 'react-bo
 
 function BuyNow(){
     const [error, setError] = useState(null);
-    const [carColor, setCarColor] = useState('Red');
+    const [carColor, setCarColor] = useState('Black');
     const [carEngine, setCarEngine] = useState('v4');
     const [transmissionType, setTransmissionType] = useState('Automatic');
     const navigate = useNavigate();
@@ -126,9 +126,9 @@ function BuyNow(){
                                                 label="Choose car color : "
                                             >
                                                 <Form.Select value={carColor} onChange={(e) => setCarColor(e.target.value)} aria-label="Floating label select example">
-                                                    <option value="C1">Black</option>
-                                                    <option value="C2">White</option>
-                                                    <option value="C3">Blue</option>
+                                                    <option value="Black">Black</option>
+                                                    <option value="White">White</option>
+                                                    <option value="Blue">Blue</option>
                                                 </Form.Select>
                                             </FloatingLabel>
                                         </Col>
@@ -137,7 +137,7 @@ function BuyNow(){
                                                 controlId="floatingSelectGrid"
                                                 label="Transmission type : "
                                             >
-                                                <Form.Select value={carEngine} onChange={(e) => setCarEngine(e.target.value)} aria-label="Floating label select example">
+                                                <Form.Select value={transmissionType} onChange={(e) => setTransmissionType(e.target.value)} aria-label="Floating label select example">
                                                     <option value="Automatic">Automatic</option>
                                                     <option value="Manual">Manual</option>
                                                 </Form.Select>
@@ -150,7 +150,7 @@ function BuyNow(){
                                                     controlId="floatingSelectGrid"
                                                     label="Car Engine : "
                                                 >
-                                                    <Form.Select value={transmissionType} onChange={(e) => setTransmissionType(e.target.value)} aria-label="Floating label select example">
+                                                    <Form.Select value={carEngine} onChange={(e) => setCarEngine(e.target.value)} aria-label="Floating label select example">
                                                         <option value="v4">v4</option>
                                                         <option value="v6">v6</option>
                                                         <option value="v8">v8</option>

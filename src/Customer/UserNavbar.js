@@ -31,7 +31,7 @@ function UserNavbar() {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="ms-auto">
+                    <Nav className="ms-auto" variant="underline">
                         <Nav.Link href="/userhome" className='mx-2 text-white fw-bold'>
                             Vehicles
                         </Nav.Link>

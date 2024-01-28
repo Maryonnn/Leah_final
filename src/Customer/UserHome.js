@@ -4,30 +4,29 @@ import { Col, Row, Card, Container, Button, Form, FloatingLabel } from "react-bo
 import { useNavigate } from 'react-router-dom';
 import supabase from '../Supabase_Client/SBClient.js';
 
-function UserProducts(){
+function UserProducts() {
     const [carData, setCarData] = useState(null);
     const [error] = useState(null);
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState("");
-    const [minPrice, setMinPrice] = useState(""); 
+    const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
 
     const all = async () => {
         try {
             const { data } = await supabase
-            .from('inventory')
-            .select('*')
+                .from('inventory')
+                .select('*');
             console.log(data);
             setCarData(data);
-        } 
-        catch (error) {
-          console.error('Error during login:', error.message);
+        } catch (error) {
+            console.error('Error during login:', error.message);
         }
     };
 
     useEffect(() => {
         all();
-    }, []); 
+    }, []);
 
     const handleLogin = async (dealer_name) => {
         try {
@@ -35,18 +34,18 @@ function UserProducts(){
                 all();
             } else {
                 const { data } = await supabase
-                .from('inventory')
-                .select('*')
-                .eq('dealer_name', dealer_name)
+                    .from('inventory')
+                    .select('*')
+                    .eq('dealer_name', dealer_name);
                 setCarData(data);
             }
         } catch (error) {
-          console.error('Error during login:', error.message);
+            console.error('Error during login:', error.message);
         }
     };
 
     const onClickBuyNow = (car) => {
-        const { dealer_name, car_name, car_style, price, vin,image_path } = car;
+        const { dealer_name, car_name, car_style, price, vin, image_path } = car;
         localStorage.setItem('dealer_name', dealer_name);
         localStorage.setItem('car_name', car_name);
         localStorage.setItem('car_style', car_style);
@@ -66,15 +65,15 @@ function UserProducts(){
             return carPrice >= minPriceValue && carPrice <= maxPriceValue;
         });
         setCarData(filtered);
-    }
+    };
 
     const resetFilters = () => {
         setMinPrice('');
         setMaxPrice('');
         all();
-    }
+    };
 
-    return(
+    return (
         <>
             <UserNavbar />
             {error && <p>{error}</p>}
@@ -90,7 +89,7 @@ function UserProducts(){
                         aria-label="Search"
                         onChange={event => setSearchTerm(event.target.value)}
                     />
-                    
+
                     <div>
                         <FloatingLabel controlId="floatingSelect" label="Select Brand" className="me-3">
                             <Form.Select aria-label="Floating label select example" onChange={e => handleLogin(e.target.value)}>
@@ -111,34 +110,34 @@ function UserProducts(){
                         placeholder="min price"
                         value={minPrice}
                         className="me-2"
-                        onChange={(e)=>setMinPrice(e.target.value)}
+                        onChange={(e) => setMinPrice(e.target.value)}
                     />
                     <Form.Control
                         type="text"
                         placeholder="max price"
                         className="me-3"
                         value={maxPrice}
-                        onChange={(e)=>setMaxPrice(e.target.value)}
+                        onChange={(e) => setMaxPrice(e.target.value)}
                     />
                 </Form>
 
                 <div className="d-flex justify-content-end mt-5">
-                    <Button 
-                        variant="outline-dark" 
+                    <Button
+                        variant="outline-dark"
                         onClick={handleFilterPrices}
                         style={{
                             borderColor: '#d2b48c',
                             borderWidth: '3px',
                             transition: 'background-color 0.3s ease',
                             fontWeight: 'bold'
-                        }} 
+                        }}
                         onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#d2b48c'}
                         onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                     >
                         Apply
                     </Button>
-                    <Button 
-                        variant="outline-danger" 
+                    <Button
+                        variant="outline-danger"
                         onClick={resetFilters}
                         className="ms-2"
                         style={{
@@ -146,7 +145,7 @@ function UserProducts(){
                             borderWidth: '3px',
                             transition: 'background-color 0.3s ease',
                             fontWeight: 'bold'
-                        }} 
+                        }}
                         onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'red'}
                         onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                     >
@@ -174,17 +173,19 @@ function UserProducts(){
 
     function CarCard({ car, onClickBuyNow }) {
         const { car_name, price, image_path, stocks, dealer_name } = car;
-        
+
         const handleBuyNowClick = () => {
-            onClickBuyNow(car);
+            if (stocks > 0) {
+                onClickBuyNow(car);
+            }
         };
-      
+
         return (
             <>
                 <Container>
                     <div className="mb-4">
-                        <Card style={{ 
-                            maxWidth: '540px', 
+                        <Card style={{
+                            maxWidth: '540px',
                             boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
                             padding: '20px 20px'
                         }}>
@@ -193,27 +194,31 @@ function UserProducts(){
                                     <Card.Img src={image_path} style={{
                                         height: '200px',
                                         objectFit: 'cover'
-                                    }} 
-                                />
+                                    }}
+                                    />
                                 </Col>
 
                                 <Col sm={5}>
                                     <Card.Title className="mt-2 mb-2">{dealer_name} {car_name}</Card.Title>
-                                    <Card.Text>Price: {price}<br/>Stocks: {stocks}</Card.Text>
-                                    <Button 
-                                        variant="outline-dark"
-                                        style={{
-                                            borderColor: '#d2b48c',
-                                            borderWidth: '3px',
-                                            transition: 'background-color 0.3s ease',
-                                            fontWeight: 'bold'
-                                        }} 
-                                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#d2b48c'}
-                                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                                        onClick={handleBuyNowClick}
-                                    >
-                                        Check out
-                                    </Button>
+                                    <Card.Text>Price: {price}<br />Stocks: {stocks}</Card.Text>
+                                    {stocks > 0 ? (
+                                        <Button
+                                            variant="outline-dark"
+                                            style={{
+                                                borderColor: '#d2b48c',
+                                                borderWidth: '3px',
+                                                transition: 'background-color 0.3s ease',
+                                                fontWeight: 'bold'
+                                            }}
+                                            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#d2b48c'}
+                                            onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                                            onClick={handleBuyNowClick}
+                                        >
+                                            Check out
+                                        </Button>
+                                    ) : (
+                                        <p className="text-danger">Sold Out</p>
+                                    )}
                                 </Col>
                             </Row>
                         </Card>
@@ -223,4 +228,5 @@ function UserProducts(){
         );
     }
 }
+
 export default UserProducts;

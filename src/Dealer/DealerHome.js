@@ -4,7 +4,7 @@ import supabase from '../Supabase_Client/SBClient.js';
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function CompanyVehicles(){
+function CompanyVehicles() {
     const [carData, setCarData] = useState(null);
     const [error] = useState(null);
     const dealerName = localStorage.getItem('dealer_name');
@@ -14,15 +14,15 @@ function CompanyVehicles(){
     const handleLogin = useCallback(async () => {
         try {
             const { data } = await supabase
-            .from('vehicles')
-            .select('*') 
-            .eq('dealer_name', dealerName);
+                .from('vehicles')
+                .select('*')
+                .eq('dealer_name', dealerName);
             setCarData(data);
-        } 
+        }
         catch (error) {
             console.error('Error during login:', error.message);
         }
-    }, [dealerName]); 
+    }, [dealerName]);
 
     useEffect(() => {
         handleLogin();
@@ -39,7 +39,7 @@ function CompanyVehicles(){
         localStorage.setItem('stocks', stocks);
         navigate('/dealerconfirm');
     };
-    
+
     return (
         <>
             <DealerNavbar />
@@ -71,53 +71,59 @@ function CompanyVehicles(){
         </>
     );
 };
-    
+
 function Vehicles({ car, onClickBuyNow }) {
-    const {car_name, price, image_path, stocks} = car;
+    const { car_name, price, image_path, stocks } = car;
     const handleBuyNowClick = () => {
-        onClickBuyNow(car);
+        if (stocks > 0) {
+            onClickBuyNow(car);
+        }
     };
-    
+
     return (
         <>
             <Container>
                 <div className="mb-4">
-                    <Card style={{ 
-                        maxWidth: '540px', 
+                    <Card style={{
+                        maxWidth: '540px',
                         boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
                         padding: '20px 10px'
                     }}>
                         <Row>
                             <Col sm={7}>
                                 <Card.Img src={image_path} style={{
-                                    height: '200px',  
+                                    height: '200px',
                                     objectFit: 'cover'
-                                }}/>
+                                }} />
                             </Col>
                             <Col sm={5}>
                                 <Card.Title className="mt-2">{car_name}</Card.Title>
-                                <Card.Text>Price: {price}<br/>Stocks: {stocks}</Card.Text>
-                                <Button 
-                                    variant="outline-dark"
-                                    style={{
-                                        borderColor: '#d2b48c',
-                                        borderWidth: '2px',
-                                        transition: 'background-color 0.3s ease',
-                                        fontWeight: 'bold'
-                                    }} 
-                                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#d2b48c'}
-                                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                                    onClick={handleBuyNowClick}
-                                >
-                                    Buy Now
-                                </Button>
+                                <Card.Text>Price: {price}<br />Stocks: {stocks}</Card.Text>
+                                {stocks > 0 ? (
+                                    <Button
+                                        variant="outline-dark"
+                                        style={{
+                                            borderColor: '#d2b48c',
+                                            borderWidth: '2px',
+                                            transition: 'background-color 0.3s ease',
+                                            fontWeight: 'bold'
+                                        }}
+                                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#d2b48c'}
+                                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                                        onClick={handleBuyNowClick}
+                                    >
+                                        Buy Now
+                                    </Button>
+                                ) : (
+                                    <p className="text-danger">Sold Out</p>
+                                )}
                             </Col>
                         </Row>
                     </Card>
                 </div>
             </Container>
         </>
-      );
+    );
 }
 
 export default CompanyVehicles;
