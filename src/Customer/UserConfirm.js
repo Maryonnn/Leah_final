@@ -126,9 +126,9 @@ function BuyNow(){
                                                 label="Choose car color : "
                                             >
                                                 <Form.Select value={carColor} onChange={(e) => setCarColor(e.target.value)} aria-label="Floating label select example">
-                                                    <option value="C1">C1</option>
-                                                    <option value="C2">C2</option>
-                                                    <option value="C3">C3</option>
+                                                    <option value="C1">Black</option>
+                                                    <option value="C2">White</option>
+                                                    <option value="C3">Blue</option>
                                                 </Form.Select>
                                             </FloatingLabel>
                                         </Col>
