@@ -200,7 +200,7 @@ function UserProducts() {
 
                                 <Col sm={5}>
                                     <Card.Title className="mt-2 mb-2">{dealer_name} {car_name}</Card.Title>
-                                    <Card.Text>Price: {price}<br />Stocks: {stocks}</Card.Text>
+                                    <Card.Text>Price: ₱{price}<br />Stocks: {stocks}</Card.Text>
                                     {stocks > 0 ? (
                                         <Button
                                             variant="outline-dark"

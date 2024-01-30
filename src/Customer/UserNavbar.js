@@ -40,9 +40,9 @@ function UserNavbar() {
                             Purchases
                         </Nav.Link>
 
-                        <Nav.Link href="/profile" className='mx-2 text-white fw-bold'>
+                       {/* <Nav.Link href="/profile" className='mx-2 text-white fw-bold'>
                             Profile
-                        </Nav.Link>
+                        </Nav.Link> */}
 
                         <Button variant='outline-light' className='ms-2 fw-bold' onClick={logout}>Logout</Button>
                     </Nav>

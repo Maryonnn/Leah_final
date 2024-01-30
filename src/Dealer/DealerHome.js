@@ -98,7 +98,7 @@ function Vehicles({ car, onClickBuyNow }) {
                             </Col>
                             <Col sm={5}>
                                 <Card.Title className="mt-2">{car_name}</Card.Title>
-                                <Card.Text>Price: {price}<br />Stocks: {stocks}</Card.Text>
+                                <Card.Text>Price: ₱{price}<br />Stocks: {stocks}</Card.Text>
                                 {stocks > 0 ? (
                                     <Button
                                         variant="outline-dark"
